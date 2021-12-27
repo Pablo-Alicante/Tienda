@@ -35,6 +35,11 @@ namespace ProyectoIntegrador
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            // Registro del contexto de la base de datos
+            services.AddDbContext<MvcTiendaContexto>(options =>
+            options.UseSqlServer(
+            Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
