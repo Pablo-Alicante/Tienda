@@ -41,6 +41,21 @@ namespace ProyectoIntegrador
             services.AddDbContext<MvcTiendaContexto>(options =>
             options.UseSqlServer(
             Configuration.GetConnectionString("DefaultConnection")));
+
+            // Configurar las opciones de los servicios de ASP.NET Core identity
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings. Configuración de las características de las contraseñas
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                //options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireNonAlphanumeric = false;
+                //options.Password.RequireUppercase = true;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,7 +109,7 @@ namespace ProyectoIntegrador
                 var user = new IdentityUser();
                 user.UserName = "admin@empresa.com";
                 user.Email = "admin@empresa.com";
-                string userPWD = "admin123";
+                string userPWD = "Admin123!";
                 userResult = await UserManager.CreateAsync(user, userPWD);
                 // Se Agrega el administrador predeterminado al rol de Administrador
                 if (userResult.Succeeded)

@@ -78,6 +78,8 @@ namespace ProyectoIntegrador.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    // Asignar el rol "Usuario" al registrarse un nuevo usuario
+                    result = await _userManager.AddToRoleAsync(user, "Usuario");
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
