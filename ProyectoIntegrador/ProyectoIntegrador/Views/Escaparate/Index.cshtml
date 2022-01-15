@@ -3,82 +3,38 @@
 @{
     ViewData["Title"] = "Escaparate";
 }
-
-<h1>Escaparate</h1>
-
-
-<div>
-    <img src="~/img/Hellraiser.jpg" />
-    <p>Rac pequeño 50cm.</p>
-    <p>83,54</p>
-    <p>Unidades disponibles: 5</p>
-    <button>Botón</button>
+<div class="row">
+    <h1>Escaparate</h1>
 </div>
 
+<div class="row">
+    <div class="col-3">
+        <ul>
+            <li>Comic</li>
+            <li>Fantasia</li>
+            <li>Historia</li>
+            <li>Terror</li>
+        </ul>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Texto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Precio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecioCadena)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Stock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Escaparate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Imagen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Texto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioCadena)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Stock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Escaparate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria.Descripcion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="col-9">
+        <div class="row">
+            @foreach (var item in Model)
+             {
+                <div class="column">
+                    <div class="card">
+                        <a href='#' title="Hellraiser"><img class="card-img-top" src="~/img/@Html.DisplayFor(modelItem => item.Imagen)" alt="Hellraiser" /></a>
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Precio) €</p>
+                            <p class="card-text">Unidades disponibles: @Html.DisplayFor(modelItem => item.Stock)</p>
+                            <div class="card-body">
+                                <button class="addCarrito" onclick="AddCarrito();"><i class='bi-cart-plus'></i> AGREGAR AL CARRITO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             }
+        </div>
+    </div>
+</div>

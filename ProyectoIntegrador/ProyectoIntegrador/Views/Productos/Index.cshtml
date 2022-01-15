@@ -61,7 +61,14 @@
                 @Html.DisplayFor(modelItem => item.Escaparate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Imagen)
+                @{ 
+                    string Imagen = "ImagenDefault.jpg";
+                    if(item.Imagen != null)
+                    {
+                        Imagen = item.Imagen;
+                    }
+                }
+                <img src="~/img/@Imagen" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Categoria.Descripcion)
