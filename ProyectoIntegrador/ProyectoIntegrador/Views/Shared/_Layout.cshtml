@@ -12,24 +12,37 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProyectoIntegrador</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Escaparate" asp-action="Index">ProyectoIntegrador</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area=""
+                               asp-controller="Escaparate" asp-action="Index">Escaparate</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area=""
+                               asp-controller="Home" asp-action="Privacy">Privacidad</a>
+                        </li>
+
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area=""
+                                   asp-controller="Carrito" asp-action="Index">Carrito</a>
+                            </li>
+
                             @if (User.IsInRole("Usuario"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area=""
                                        asp-controller="MisDatos" asp-action="Edit">Mis datos</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area=""
-                                       asp-controller="Escaparate" asp-action="Index">Escaparate</a>
                                 </li>
                             }
                             @if (User.IsInRole("Administrador"))
@@ -55,25 +68,15 @@
                                        asp-controller="Pedidos" asp-action="Index">Pedidos</a>
                                 </li>
                                 <!--
-                                    DEJO ESTO COMENTADO PORQUE HICE COPIAR/PEGAR DE LA PRÁCTICA 6 Y TENGO QUE VER SI ME VA A SERVIR O NO...CREO QUE NO...
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area=""
-                                            asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                                    </li>
-                                -->
+                DEJO ESTO COMENTADO PORQUE HICE COPIAR/PEGAR DE LA PRÁCTICA 6 Y TENGO QUE VER SI ME VA A SERVIR O NO...CREO QUE NO...
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area=""
+                        asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                </li>
+            -->
                             }
                         }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area=""
-                                   asp-controller="Home" asp-action="Index">Inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area=""
-                                   asp-controller="Home" asp-action="Privacy">Privacidad</a>
-                            </li>
-                        }
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

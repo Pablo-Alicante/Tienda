@@ -42,7 +42,8 @@
                             <p class="card-text">@Html.DisplayFor(modelItem => item.Precio) €</p>
                             <p class="card-text">Unidades disponibles: @Html.DisplayFor(modelItem => item.Stock)</p>
                             <div class="card-body">
-                                <button class="addCarrito" onclick="AddCarrito();"><i class='bi-cart-plus'></i> AGREGAR AL CARRITO</button>
+                                @Ajax.ActionLink("Agregar al carrito", "Dummy", "EscaparateController", new { id = item.Id }, new AjaxOptions { HttpMethod = "POST" })
+                                <button class="addCarrito"><i class='bi-cart-plus'></i> AGREGAR AL CARRITO</button>
                             </div>
                         </div>
                     </div>
