@@ -32,8 +32,22 @@ namespace ProyectoIntegrador.Controllers
         {
             if (id == null)
             {
+                // Selecciona productos del escaparte
+                // productos = productos.where( x=> x.Excaparate == true);
                 return NotFound();
             }
+            // else
+            // {
+            // Selecciona productos del escaprate
+            // productos = productos.where(x => x.CategoriaId == Id);
+            // 
+            // Obtiene el nombre de la categoría selecionada
+            // ViewBag.DescriptionCategoria = _context.Categorias.Find(id).Description.ToString xxxxxxxxxx Foto cortada
+            // }
+
+            // ViewData["ListaCategorias"] = _context.Categorias.OrderBy( c => c.Description).ToL xxxxxxxxxxx Foto cortada
+
+
 
             var producto = await _context.Productos
                 .Include(p => p.Categoria)
