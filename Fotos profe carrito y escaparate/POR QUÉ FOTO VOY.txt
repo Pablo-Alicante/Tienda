@@ -1,1 +1,2 @@
-Voy por 17232
+Hecho CarritoController y EscaparateController, me faltan las vistas
+OJO QUE HAY FOTOS CORTADAS

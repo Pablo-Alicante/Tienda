@@ -46,7 +46,88 @@ namespace ProyectoIntegrador.Controllers
             // }
 
             // ViewData["ListaCategorias"] = _context.Categorias.OrderBy( c => c.Description).ToL xxxxxxxxxxx Foto cortada
+            // productos = productos.Include(a => a.Categoria);
 
+            // return View(await productos.ToListAsync());
+
+            // GET AñadirCarrito
+
+            // public aync Task<IActionResult> AñadirCarrito(int ? id)
+            // {
+            // if(id == null)
+            // {
+            // return NotFound();
+            // }
+
+            // var producto = await_context.Prductos
+            //                  .Include(p =>p.Categoria)
+            //                  .FirstOrDefaultAsync(m =>m.id == id);
+
+            // if(producto == null)
+            // {
+            // return NotFound();
+            // }
+            // return View(producto);
+            // }
+
+            // POST: Escaparate/AgregarCarrito/5
+            // [HttpPost]
+            // [ValidateAntiForgeryToken]
+
+            // public async Task<ActionResult>AñadirCarrito(int id)
+            // {
+            // Cargar datos de producto a añadir al carrito
+            // var producto = await_context.Productos
+            // .FirstOrDefaultAsync(m=>m.Id == id);
+            // if (producto == null)
+            // {
+            // return NotFound();
+            // }
+
+            // Crear objetos peido y detalle a agregar
+            // Pedido pedido = new Pedido();
+            // Detalle detalle = new Detalle();
+
+            // Cliente usuario = await _context.Clientes.Where(p=>p.Email == User.Identity.Name).FirstOrDefaultAsync();
+
+            // if(HttpContext.Sesion.GetString("NumPedido") == null;
+            // {
+            //  pedido.Fecha = DateTime.Now;
+            // pedido.Confirmado = null;
+            // pedido.Preparado = null;
+            // pedido.Enviado = null;
+            // pedido.Cobrado = null;
+            // pedido.Devuelto = null;
+            // pedido.Anulado = null;
+            // pedido.ClienteId = usuario.Id;
+            // pedido.EstadoId = 1;
+            // if(ModelState.IsValid)
+            // {
+            // _context.Add(pedido);
+            //  await _context.SaveChangesAsync();
+            // }
+
+
+            // HttpContext.Session.SetString("NumPedido", pedido.Id.ToString());
+            //}
+
+            // Agregar producto al detalle de un pedido existente
+            // string strNumeroPedido = HttpContext.Session.GetString("NumPedido");
+            // detalle.PedidoId = Convert.ToInt32(strNumeroPedido);
+
+            // El valor de id tiene el Id del producto a agregar
+            // detalle.ProductoId = id;
+            // detalle.Cantidad = 1;
+            // detalle.Precio = producto.Precio;
+            // detalle.Descuento = 0;
+            // if (ModelState.IsValid)
+            // {
+            // _context.Add(detalle);
+            // await _context.SaveChangesAsync();
+            // }
+            // return RedirectToAction(nameof(Index));
+            // } 
+            // }
 
 
             var producto = await _context.Productos
