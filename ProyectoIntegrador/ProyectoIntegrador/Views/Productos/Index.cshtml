@@ -4,6 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/Productos.css" />
+</head>
+
 <h1>Índice</h1>
 
 <p>
@@ -21,12 +25,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Precio)
             </th>
-            
-                     <th>
-        @Html.DisplayNameFor(model => model.PrecioCadena)
-        </th>
-            
-
             <th>
                 @Html.DisplayNameFor(model => model.Stock)
             </th>
@@ -54,17 +52,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Precio)
             </td>
-            
-                        <td>
-            @Html.DisplayFor(modelItem => item.PrecioCadena)
-        </td>
-            
-
             <td>
                 @Html.DisplayFor(modelItem => item.Stock)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Escaparate)
+                @{ 
+                    string Verdadero = "Visible";
+                    if(item.Escaparate == true)
+                    {
+                        Verdadero = "Visible";
+                    }
+                    else
+                    {
+                        Verdadero = "No visible";
+                   }
+                }
+                @Verdadero
             </td>
             <td>
                 @{
@@ -74,7 +77,7 @@
                         Imagen = item.Imagen;
                     }
                 }
-                <img src="~/img/@Imagen" />
+                <img class="Imagen" src="~/img/@Imagen" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Categoria.Descripcion)
