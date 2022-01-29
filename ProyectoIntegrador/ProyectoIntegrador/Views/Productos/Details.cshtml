@@ -21,22 +21,13 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Texto)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Precio)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Precio)
-        </dd>
-        
+        </dd>     
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PrecioCadena)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PrecioCadena)
         </dd>
-        
-        
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Stock)
         </dt>
@@ -47,7 +38,18 @@
             @Html.DisplayNameFor(model => model.Escaparate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Escaparate)
+            @{
+                string Verdadero = "Visible";
+                if (Model.Escaparate == true)
+                {
+                    Verdadero = "Visible";
+                }
+                else
+                {
+                    Verdadero = "No visible";
+                }
+            }
+            @Verdadero
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Imagen)
