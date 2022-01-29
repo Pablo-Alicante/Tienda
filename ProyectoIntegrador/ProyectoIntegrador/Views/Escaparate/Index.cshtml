@@ -42,7 +42,10 @@
                             <p class="card-text">@Html.DisplayFor(modelItem => item.Precio) €</p>
                             <p class="card-text">Unidades disponibles: @Html.DisplayFor(modelItem => item.Stock)</p>
                             <div class="card-body">
-                                <button class="addCarrito"><i class='bi-cart-plus'></i> AGREGAR AL CARRITO</button>
+                                <form asp-action="Dummy">
+                                    <input type="hidden" value="@item.Id"/>
+                                    <button type="submit" class="addCarrito"><i class='bi-cart-plus'></i> AGREGAR AL CARRITO</button>
+                                </form>
                             </div>
                         </div>
                     </div>
