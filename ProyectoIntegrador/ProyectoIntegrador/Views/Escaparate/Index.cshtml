@@ -14,10 +14,10 @@
 <div class="row">
     <div class="col-3">
         <ul>
-            <li><a href="#">Comic</a></li>
-            <li><a href="#">Fantasia</a></li>
-            <li><a href="#">Historia</a></li>
-            <li><a href="#">Terror</a></li>
+            @foreach(var i in ViewData["ListaCategorias"] as IEnumerable<Categoria>)
+             {
+                <li><a asp-action="Index" asp-route-id="@i.Id">@i.Descripcion.ToString()</a></li>
+             }
         </ul>
     </div>
 
@@ -42,7 +42,6 @@
                             <p class="card-text">@Html.DisplayFor(modelItem => item.Precio) €</p>
                             <p class="card-text">Unidades disponibles: @Html.DisplayFor(modelItem => item.Stock)</p>
                             <div class="card-body">
-                                @Ajax.ActionLink("Agregar al carrito", "Dummy", "EscaparateController", new { id = item.Id }, new AjaxOptions { HttpMethod = "POST" })
                                 <button class="addCarrito"><i class='bi-cart-plus'></i> AGREGAR AL CARRITO</button>
                             </div>
                         </div>

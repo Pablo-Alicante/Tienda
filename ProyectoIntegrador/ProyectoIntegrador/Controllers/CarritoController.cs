@@ -46,7 +46,7 @@ namespace ProyectoIntegrador.Controllers
             //GET Carrito vacío
             // private bool DetalleExists(int id)
             // {
-            // retunr _context.Detalles.Any(p =>p.Id == id);
+            // return _context.Detalles.Any(p =>p.Id == id);
             // }
 
             // public async Task<ActionResult>MasCantidad(int ? id)

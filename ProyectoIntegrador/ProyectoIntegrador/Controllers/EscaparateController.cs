@@ -20,56 +20,56 @@ namespace ProyectoIntegrador.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var mvcTiendaContexto = _context.Productos.Include(p => p.Categoria);
-            return View(await mvcTiendaContexto.ToListAsync());
+            var productos = _context.Productos.AsQueryable();
+
+            if (id == null)
+            {
+                // Selecciona productos del escaparte
+                productos = productos.Where( x=> x.Escaparate == true);
+            }
+            else
+            {
+                // Selecciona productos del escaprate
+                productos = productos.Where(x => x.CategoriaId == id);
+            
+                // Obtiene el nombre de la categoría selecionada
+                ViewBag.DescriptionCategoria = _context.Categorias.Find(id).Descripcion.ToString();
+            }
+            
+            ViewData["ListaCategorias"] = _context.Categorias.OrderBy( c => c.Descripcion).ToList();
+            productos = productos.Include(a => a.Categoria);
+
+            return View(await productos.ToListAsync());
         }
 
         // GET AnyadirCarrito
         // La acción GET mostrará los datos del producto a añadir
         public async Task<IActionResult> AnyadirCarrito(int? id)
         {
-            if (id == null)
+            if(id == null)
             {
-                // Selecciona productos del escaparte
-                // productos = productos.where( x=> x.Excaparate == true);
                 return NotFound();
             }
-            // else
-            // {
-            // Selecciona productos del escaprate
-            // productos = productos.where(x => x.CategoriaId == Id);
-            // 
-            // Obtiene el nombre de la categoría selecionada
-            // ViewBag.DescriptionCategoria = _context.Categorias.Find(id).Description.ToString xxxxxxxxxx Foto cortada
-            // }
 
-            // ViewData["ListaCategorias"] = _context.Categorias.OrderBy( c => c.Description).ToL xxxxxxxxxxx Foto cortada
-            // productos = productos.Include(a => a.Categoria);
+            var producto = await _context.Productos
+                .Include(p => p.Categoria)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            // return View(await productos.ToListAsync());
+            if (producto == null)
+            {
+                return NotFound();
+            }
 
-            // GET AñadirCarrito
+            return View(producto);
+        }
 
-            // public aync Task<IActionResult> AñadirCarrito(int ? id)
-            // {
-            // if(id == null)
-            // {
-            // return NotFound();
-            // }
-
-            // var producto = await_context.Prductos
-            //                  .Include(p =>p.Categoria)
-            //                  .FirstOrDefaultAsync(m =>m.id == id);
-
-            // if(producto == null)
-            // {
-            // return NotFound();
-            // }
-            // return View(producto);
-            // }
-
+        // POST:
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AnyadirCarrito(Producto producto)
+        {
             // POST: Escaparate/AgregarCarrito/5
             // [HttpPost]
             // [ValidateAntiForgeryToken]
@@ -130,24 +130,6 @@ namespace ProyectoIntegrador.Controllers
             // }
 
 
-            var producto = await _context.Productos
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (producto == null)
-            {
-                return NotFound();
-            }
-
-            return View(producto);
-
-        }
-
-        // POST:
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AnyadirCarrito(Producto producto)
-        {
             string emailUsuario = User.Identity.Name;
             int ClienteId;
             Pedido pedidoActual;
@@ -283,12 +265,9 @@ namespace ProyectoIntegrador.Controllers
 
                     _context.Pedidos.Add(pedidoActual);
                 }
-
             }
-
             return Ok();
         }
-
     }
 }
 
