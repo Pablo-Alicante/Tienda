@@ -2,11 +2,11 @@
 
 @{
     ViewData["Title"] = "Escaparate";
+    Layout = "~/Views/Shared/_Layaout.cshtml";
 }
 
-<div class="row">
     <h1>Escaparate</h1>
-</div>
+    <h4>View</h4>
 
 <div class="row">
     <div class="col-3">
@@ -40,7 +40,7 @@
                             <p class="card-text">Unidades disponibles: @Html.DisplayFor(modelItem => item.Stock)</p>
                             <div class="card-body">
                                 <form asp-action="Dummy">
-                                    <input type="hidden" value="@item.Id"/>
+                                    <input type="hidden" name="id" value="@item.Id"/>
                                     <button type="submit" class="addCarrito"><i class='bi-cart-plus'></i> AGREGAR AL CARRITO</button>
                                 </form>
                             </div>

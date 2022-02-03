@@ -249,9 +249,9 @@ namespace ProyectoIntegrador.Controllers
                 {
                     // en caso contrario, hay que crear el pedido y que este sea la primera línea.
                     pedidoActual = new Pedido();
-                    pedidoActual.ClienteId = 1;
+                    pedidoActual.ClienteId = ClienteId;
                     pedidoActual.Detalles = new List<Detalle>();
-                    pedidoActual.EstadoId = 1;
+                    pedidoActual.EstadoId = pendiente.Id;
                     pedidoActual.Fecha = DateTime.Now;
 
                     Detalle detalle = new Detalle();
@@ -265,6 +265,7 @@ namespace ProyectoIntegrador.Controllers
 
                     _context.Pedidos.Add(pedidoActual);
                 }
+                await _context.SaveChangesAsync();
             }
             return Ok();
         }
