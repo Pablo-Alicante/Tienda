@@ -20,14 +20,18 @@ namespace ProyectoIntegrador.Controllers
             _context = context;
         }
         // GET: Clientes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit()
         {
-            if (id == null)
+            string emailUsuario = User.Identity.Name;
+            if (emailUsuario == null)
             {
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await _context.Clientes
+                .Where(e => e.Email == emailUsuario)
+                .FirstOrDefaultAsync();
+
             if (cliente == null)
             {
                 return NotFound();
@@ -56,23 +60,11 @@ namespace ProyectoIntegrador.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClienteExists(cliente.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Home");
             }
             return View(cliente);
-        }
-
-        private bool ClienteExists(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

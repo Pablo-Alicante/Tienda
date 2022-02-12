@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoIntegrador.Controllers
 {
-    [Authorize(Roles = "Usuario")]
+
     public class EscaparateController : Controller
     {
         private readonly MvcTiendaContexto _context;
@@ -194,6 +194,7 @@ namespace ProyectoIntegrador.Controllers
         // POST:
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Usuario")]
         public async Task<IActionResult> Dummy(int? id)
         {
             string emailUsuario = User.Identity.Name;
@@ -267,7 +268,7 @@ namespace ProyectoIntegrador.Controllers
                 }
                 await _context.SaveChangesAsync();
             }
-            return Ok();
+            return RedirectToAction("Index","Escaparate");
         }
     }
 }

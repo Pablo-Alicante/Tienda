@@ -6,81 +6,148 @@
 }
 
 <h1>Mi Carrito</h1>
-@{ 
-    if(Model == null)
+@{
+    if (Model == null)
     {
         <h4>No tienes ningún pedido creado</h4>
     }
-    else 
-    { 
-<div>
-    <h4>Pedido</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Confirmado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Confirmado)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Preparado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Preparado)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Enviado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Enviado)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cobrado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cobrado)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Devuelto)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Devuelto)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Anulado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Anulado)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cliente)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cliente.Nombre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Estado.Descripcion)
-        </dd>
-    </dl>
+    else
+    {
+        <div>
+            <h4>Pedido</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Fecha)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Fecha)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Confirmado)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Confirmado)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Preparado)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Preparado)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Enviado)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Enviado)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Cobrado)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Cobrado)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Devuelto)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Devuelto)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Anulado)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Anulado)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Cliente)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Cliente.Nombre)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Estado)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Estado.Descripcion)
+                </dd>
+            </dl>
+        </div><!--AQUÍ VAN LOS PRODUCTOS--><table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id Producto</th>
+                    <th>Descripción del producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Descuento</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var detalle in Model.Detalles)
+                {
+                    var total = detalle.Cantidad * (detalle.Precio * (1 - detalle.Descuento));
+                    string Imagen = "ImagenDefault.jpg";
+                    if (detalle.Producto.Imagen != null)
+                    {
+                        Imagen = detalle.Producto.Imagen;
+                    }
+                    <tr>
+                        <td><img class="Imagen" src="~/img/@Imagen" /></td>
+                        <td>@detalle.ProductoId</td>
+                        <td>@detalle.Producto.Descripcion</td>
+                        <td>
+                            <button>-</button>
+                            <label>@detalle.Cantidad</label>
+                            <button>+</button>
+                        </td>
+                        <td>@detalle.Precio</td>
+                        <td>@detalle.Descuento</td>
+                        <td>@total €</td>
+                        <td><button>Eliminar</button></td>
+                    </tr>
+                }
 
 
 
-</div>
+
+
+                <tr>
+                    <td>foto</td>
+                    <td>9</td>
+                    <td>Asterix el galo</td>
+                    <td>
+                        <button>-</button>
+                        <label>1</label>
+                        <button>+</button>
+                    </td>
+                    <td>40,00</td>
+                    <td>0</td>
+                    <td>40€</td>
+                    <td><button>Eliminar</button></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td>40,00</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        <button>Confirmar Pedido</button>
     }
 }

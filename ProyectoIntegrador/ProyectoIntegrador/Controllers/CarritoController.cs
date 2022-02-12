@@ -187,6 +187,7 @@ namespace ProyectoIntegrador.Controllers
 
                 pedidoActual = await _context.Pedidos
                     .Include(p => p.Detalles)
+                        .ThenInclude(x => x.Producto)
                     .Include(p => p.Cliente)
                     .Where(e => e.ClienteId == ClienteId && e.EstadoId == pendiente.Id)
                     .FirstOrDefaultAsync();

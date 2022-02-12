@@ -85,7 +85,7 @@ namespace ProyectoIntegrador
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Escaparate}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
             // Llamada al método que crea los roles y usuarios predeterminados
