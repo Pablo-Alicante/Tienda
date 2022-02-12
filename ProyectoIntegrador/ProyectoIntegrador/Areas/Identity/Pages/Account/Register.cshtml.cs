@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ProyectoIntegrador.Data;
+using ProyectoIntegrador.Models;
 
 namespace ProyectoIntegrador.Areas.Identity.Pages.Account
 {
@@ -23,17 +25,21 @@ namespace ProyectoIntegrador.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly MvcTiendaContexto _context;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            MvcTiendaContexto context
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -74,10 +80,23 @@ namespace ProyectoIntegrador.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
+                    Cliente cliente = new Cliente();
+                    cliente.Nombre = Input.Email.Substring(0,Input.Email.IndexOf("@"));
+                    cliente.Email = Input.Email;
+                    cliente.Telefono = "";
+                    cliente.Direccion = "";
+                    cliente.Poblacion = "";
+                    cliente.CodigoPostal = "";
+                    cliente.Nif = "";
+
+                    _context.Add(cliente);
+                    await _context.SaveChangesAsync();
                     // Asignar el rol "Usuario" al registrarse un nuevo usuario
                     result = await _userManager.AddToRoleAsync(user, "Usuario");
                     _logger.LogInformation("User created a new account with password.");
