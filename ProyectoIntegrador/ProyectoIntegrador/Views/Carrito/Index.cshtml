@@ -118,7 +118,11 @@
                         <td>@detalle.Precio</td>
                         <td>@detalle.Descuento</td>
                         <td>@total €</td>
-                        <td><button>Eliminar</button></td>
+                        <td>
+                            <form asp-action="EliminarLinea">
+                                <input type="submit" value="Eliminar" asp-action="EliminarLinea" asp-controller="Carrito" asp-route-id="@detalle.Id"/>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>
