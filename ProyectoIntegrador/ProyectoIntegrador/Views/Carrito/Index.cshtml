@@ -105,9 +105,14 @@
                         <td>@detalle.ProductoId</td>
                         <td>@detalle.Producto.Descripcion</td>
                         <td>
-                            <button>-</button>
+                            @{
+                                if (detalle.Cantidad > 1)
+                                {
+                                    <a asp-action="MenosCantidad" asp-controller="Carrito" asp-route-id="@detalle.Id"> - </a>
+                                }
+                            }
                             <label>@detalle.Cantidad</label>
-                            <button>+</button>
+                            <a asp-action="MasCantidad" asp-controller="Carrito" asp-route-id="@detalle.Id"></a>
                         </td>
                         <td>@detalle.Precio</td>
                         <td>@detalle.Descuento</td>
@@ -115,25 +120,6 @@
                         <td><button>Eliminar</button></td>
                     </tr>
                 }
-
-
-
-
-
-                <tr>
-                    <td>foto</td>
-                    <td>9</td>
-                    <td>Asterix el galo</td>
-                    <td>
-                        <button>-</button>
-                        <label>1</label>
-                        <button>+</button>
-                    </td>
-                    <td>40,00</td>
-                    <td>0</td>
-                    <td>40€</td>
-                    <td><button>Eliminar</button></td>
-                </tr>
             </tbody>
             <tfoot>
                 <tr>
