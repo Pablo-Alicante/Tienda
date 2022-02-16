@@ -44,30 +44,50 @@ namespace ProyectoIntegrador.Controllers
             // }
 
             //GET Carrito vacío
-            // private bool DetalleExists(int id)
+            
+            // public ActionResult CarritoVacio()
             // {
-            // return _context.Detalles.Any(p =>p.Id == id);
+            // return View();
             // }
 
-            // public async Task<ActionResult>MasCantidad(int ? id)
+            // POST Detalles/EliminarLinea
+
+            // [httpPost]
+            // [ValidateAntiForgeryToken ]
+            // public async Task<IActionResult> EliminarLinea(int id)
             // {
-            // if(id == null)
+            // var detalle = await_context.Detalles.FindAsync(id);
+            // await _context.SaveChangesAsync();
+
+            // return RedirectToAction(nameof(Index));
+            // }
+
+
+            // GET CarritoMasCantidad
+
+            // private bool DetallesExists(int id)
+            // {
+            // return _context.Detalles.Any(p => p.ID == Id);
+            // }
+
+            // public asyn Task<IActionResult>MasCantidad (int ? id)
+            // {
+            // if (id == null)
             // {
             // return NotFound();
             // }
 
-            // var detalle = await_context.Detalles.FindAsync(id);
-            // detalle.Cantidad = detalle.Cantidad + 1;
-
+            // var detalle = await _context.Detalles.FindAsync(id);
+            // detalle.Cantidad = detalle.CAntidad + 1;
+            
             // if(ModelState.IsValid)
             // {
             // try
             // {
-            // _context.Update(detalle);
-            // await_context.SaveChangesAsync();
+            // _context.UpDate(detalle);
+            // await _context.SaveChangesAsync();
             // }
-
-            // catch(DbUpdateConcurrencyException)
+            // catch (DbpdateConcurrencyException)
             // {
             // if(!DetalleExists(detalle.id))
             // {
@@ -103,7 +123,7 @@ namespace ProyectoIntegrador.Controllers
             // }
             // catch(DbUpdateConcurrencyException)
             // {
-            // if(!DetalleExisists(detalle,id))
+            // if(!DetalleExisists(detalle.id))
             // {
             // return NotFound();
             // }
@@ -115,6 +135,7 @@ namespace ProyectoIntegrador.Controllers
             // }
             // return RedirectToAction(nameof(Index));
             // }
+
 
             // POST Carrito/ConfirmarPedido
 
@@ -128,7 +149,6 @@ namespace ProyectoIntegrador.Controllers
             // }
 
             // var pedido = await_context.Pedidos.FindAsync(id);
-
 
             // se cambia el estado del pedido a confirmado
 

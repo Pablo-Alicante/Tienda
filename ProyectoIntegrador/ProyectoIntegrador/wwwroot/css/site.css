@@ -61,6 +61,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  background-color: yellow;
 }
 .footer {
   position: absolute;
@@ -75,6 +76,15 @@ body {
     height: auto;
 }
 
-.main, row, col-3, .ul{
+.main row col-3 .ul{
     list-style:none;
 }
+
+.main .col-9 .row .colum {
+    display: flex;
+}
+
+.card {
+width: 250px;
+}
+
