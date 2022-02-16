@@ -215,5 +215,75 @@ namespace ProyectoIntegrador.Controllers
 
             return View(pedidoActual);
         }
+
+        public async Task<ActionResult> MenosCantidad(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var detalle = await _context.Detalles.FindAsync(id);
+            detalle.Cantidad = detalle.Cantidad - 1;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(detalle);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!DetallesExists(detalle.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET CarritoMasCantidad
+
+        private bool DetallesExists(int id)
+        {
+            return _context.Detalles.Any(p => p.Id == id);
+        }
+
+        public async Task<IActionResult>MasCantidad (int? id)
+         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var detalle = await _context.Detalles.FindAsync(id);
+            detalle.Cantidad = detalle.Cantidad + 1;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(detalle);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!DetallesExists(detalle.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

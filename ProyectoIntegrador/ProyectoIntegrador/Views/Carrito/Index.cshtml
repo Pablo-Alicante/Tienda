@@ -78,7 +78,8 @@
                     @Html.DisplayFor(model => model.Estado.Descripcion)
                 </dd>
             </dl>
-        </div><!--AQUÍ VAN LOS PRODUCTOS--><table class="table">
+        </div><!--AQUÍ VAN LOS PRODUCTOS-->
+        <table class="table">
             <thead>
                 <tr>
                     <th></th>
@@ -112,7 +113,7 @@
                                 }
                             }
                             <label>@detalle.Cantidad</label>
-                            <a asp-action="MasCantidad" asp-controller="Carrito" asp-route-id="@detalle.Id"></a>
+                            <a asp-action="MasCantidad" asp-controller="Carrito" asp-route-id="@detalle.Id"> + </a>
                         </td>
                         <td>@detalle.Precio</td>
                         <td>@detalle.Descuento</td>
