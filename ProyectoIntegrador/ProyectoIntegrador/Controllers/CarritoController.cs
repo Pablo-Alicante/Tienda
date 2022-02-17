@@ -309,7 +309,11 @@ namespace ProyectoIntegrador.Controllers
                 return NotFound();
             }
 
-            var pedido = await _context.Pedidos.FindAsync(id);
+            Pedido pedido = await _context.Pedidos
+                .Include(p => p.Detalles)
+                .ThenInclude(p => p.Producto)
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             //se cambia el estado del pedido a confirmado
 
@@ -318,7 +322,18 @@ namespace ProyectoIntegrador.Controllers
             .FirstOrDefaultAsync();
             pedido.EstadoId = confirmado.Id;
             pedido.Confirmado = DateTime.Now;
+            // recorrer las lineas del pedido y para cada línea del pedido,
+            // obtener de la BD el producto al que está haciendo referencia y restarle la cantidad de unidades
 
+            foreach( Detalle detalle  in pedido.Detalles)
+            {
+                var producto = await _context.Productos
+                    .Where(e => e.Id == detalle.ProductoId)
+                    .FirstOrDefaultAsync();
+                producto.Stock = producto.Stock - detalle.Cantidad;
+
+                _context.Update(producto);
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -341,6 +356,7 @@ namespace ProyectoIntegrador.Controllers
                     }
                 }
             }
+
             return RedirectToAction(nameof(Index), "Escaparate");
         }
 

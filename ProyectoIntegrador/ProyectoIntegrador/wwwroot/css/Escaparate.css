@@ -6,21 +6,32 @@
 }
 
 .Foto {
-    width: 250px;
-    height: 300px;
+    width: auto;
     margin: 5px;
+    height: 100%;
+}
+
+.imagen {
+    max-height: 300px;
+    min-height: 300px;
 }
 
 li {
     list-style: none;
 }
 
-.card{
+.card {
     width: 250px;
-    height: 330px;
+    height: 500px;
+    overflow: hidden;
 }
 
 .card-body {
     width: 250px;
-    height: 250px;
+    height: 200px;
+}
+
+.card-body2 {
+    position: absolute;
+    bottom: 10px;
 }

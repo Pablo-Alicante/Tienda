@@ -33,14 +33,17 @@
                                 Imagen = item.Imagen;
                             }
                         }
-                        <a href='#' title="@Imagen">
-                            <img class="Foto card-img-top"  src="~/img/@Imagen" alt="@Imagen" />
-                        </a>
+                        <div class="imagen">
+                            <a href='#' title="@Imagen">
+                                <img class="Foto card-img-top" src="~/img/@Imagen" alt="@Imagen" />
+                            </a>
+                        </div>
+
                         <div class="card-body">
                             <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
                             <p class="card-text">@Html.DisplayFor(modelItem => item.Precio) €</p>
                             <p class="card-text">Unidades disponibles: @Html.DisplayFor(modelItem => item.Stock)</p>
-                            <div class="card-body">
+                            <div class="card-body2">
                                 <form asp-action="Dummy">
                                     <input type="hidden" name="id" value="@item.Id"/>
                                     <button type="submit" class="addCarrito"><i class='bi-cart-plus'></i> AGREGAR AL CARRITO</button>
