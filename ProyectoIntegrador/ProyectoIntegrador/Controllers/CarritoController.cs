@@ -255,7 +255,7 @@ namespace ProyectoIntegrador.Controllers
         }
 
         public async Task<IActionResult>MasCantidad (int? id)
-         {
+        {
             if (id == null)
             {
                 return NotFound();
@@ -285,5 +285,69 @@ namespace ProyectoIntegrador.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        // POST Detalles/EliminarLinea
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EliminarLinea(int id)
+        {
+            var detalle = await _context.Detalles.FindAsync(id);
+            _context.Detalles.Remove(detalle);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST Carrito/ConfirmarPedido
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmarPedido(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pedido = await _context.Pedidos.FindAsync(id);
+
+            //se cambia el estado del pedido a confirmado
+
+            var confirmado = await _context.Estados
+            .Where(e => e.Descripcion == "Confirmado")
+            .FirstOrDefaultAsync();
+            pedido.EstadoId = confirmado.Id;
+            pedido.Confirmado = DateTime.Now;
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(pedido);
+                    await _context.SaveChangesAsync();
+
+                // Al confirmar el pedido se pone la variable de sesion del pedido actual
+                // HttpContext.Session.Remove("NumPedido");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PedidoExists(pedido.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return RedirectToAction(nameof(Index), "Escaparate");
+        }
+
+        private bool PedidoExists(int id)
+        {
+            return _context.Pedidos.Any(p => p.Id == id);
+        }
     }
 }
+   

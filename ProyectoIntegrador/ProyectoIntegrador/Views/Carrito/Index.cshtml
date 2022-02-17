@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 <h1>Mi Carrito</h1>
 @{
     if (Model == null)
@@ -93,15 +95,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var detalle in Model.Detalles)
-                {
-                    var total = detalle.Cantidad * (detalle.Precio * (1 - detalle.Descuento));
-                    string Imagen = "ImagenDefault.jpg";
-                    if (detalle.Producto.Imagen != null)
+                @{
+                    decimal TotalDeTotales = 0;
+                    foreach (var detalle in Model.Detalles)
                     {
-                        Imagen = detalle.Producto.Imagen;
-                    }
-                    <tr>
+                        var total = detalle.Cantidad * (detalle.Precio * (1 - detalle.Descuento));
+                        TotalDeTotales = TotalDeTotales + total;
+                        string Imagen = "ImagenDefault.jpg";
+                        if (detalle.Producto.Imagen != null)
+                        {
+                            Imagen = detalle.Producto.Imagen;
+                        }
+                        <tr>
                         <td><img class="Imagen" src="~/img/@Imagen" /></td>
                         <td>@detalle.ProductoId</td>
                         <td>@detalle.Producto.Descripcion</td>
@@ -120,10 +125,11 @@
                         <td>@total €</td>
                         <td>
                             <form asp-action="EliminarLinea">
-                                <input type="submit" value="Eliminar" asp-action="EliminarLinea" asp-controller="Carrito" asp-route-id="@detalle.Id"/>
+                                <input type="submit" value="Eliminar" asp-action="EliminarLinea" asp-controller="Carrito" asp-route-id="@detalle.Id" />
                             </form>
                         </td>
-                    </tr>
+                        </tr>
+                    }
                 }
             </tbody>
             <tfoot>
@@ -134,11 +140,14 @@
                     <td></td>
                     <td></td>
                     <td>Total</td>
-                    <td>40,00</td>
+                    <td>@TotalDeTotales                    
+                    </td>
                     <td></td>
                 </tr>
             </tfoot>
         </table>
-        <button>Confirmar Pedido</button>
+        <form asp-action="ConfirmarPedido">
+            <input type="submit" value="Confirmar" asp-action="ConfirmarPedido" asp-controller="Carrito" asp-route-id="@Model.Id" />
+        </form>
     }
 }

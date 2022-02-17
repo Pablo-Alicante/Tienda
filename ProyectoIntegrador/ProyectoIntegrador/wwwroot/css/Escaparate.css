@@ -1,10 +1,13 @@
-﻿body {
-    
+﻿* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
 }
 
 .Foto {
     width: 250px;
-    height: 330px;
+    height: 300px;
     margin: 5px;
 }
 
@@ -12,6 +15,12 @@ li {
     list-style: none;
 }
 
-.Imagen{
+.card{
+    width: 250px;
+    height: 330px;
+}
 
+.card-body {
+    width: 250px;
+    height: 250px;
 }
