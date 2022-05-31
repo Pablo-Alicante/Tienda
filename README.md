@@ -1,2 +1,2 @@
 # Tienda
-Practica asignatura entorno servidor
+Practica asignatura programación en entorno servidor del IES Mare Nostrum cuyo profesor es Vicente Aracil.
